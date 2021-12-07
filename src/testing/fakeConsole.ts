@@ -14,6 +14,9 @@ export class FakeConsole implements Console {
             case '-':
                 index = parseInt(description, 10)
                 this.removeTask(index)
+            case 'x':
+                index = parseInt(description, 10)
+                this.checkTask(index)
         }
     }
 
@@ -25,6 +28,16 @@ export class FakeConsole implements Console {
         for (let i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i][0] === id.toString()) {
                 this.taskList.splice(i, 1);
+                continue
+            }
+        }
+    }
+
+    checkTask(id: number) {
+        for (let i = 0; i < this.taskList.length; i++) {
+            if (this.taskList[i][0] === id.toString()) {
+                const task = this.taskList[i]
+                this.taskList[i] = task.substring(0, 3) + 'x' + task.substring(3, task.length);
                 continue
             }
         }
