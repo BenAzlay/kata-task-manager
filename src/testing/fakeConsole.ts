@@ -1,8 +1,8 @@
-import { Console } from '../console';
+import { Console, Task } from '../console';
 
 export class FakeConsole implements Console {
-    taskList: string[] = [];
-    taskId: number = 1;
+    taskList: Task[] = [];
+    currentTaskId: number = 1;
 
     readInput(input: string) {
         const operator = input[0]
@@ -28,29 +28,29 @@ export class FakeConsole implements Console {
     }
 
     addTask(description: string) {
-        this.taskList.push(`${this.taskId.toString()} [] ${description}`)
-        this.taskId++;
+        const newTask = new Task(
+            this.currentTaskId,
+            '',
+            description
+        )
+        this.taskList.push(newTask)
+        this.currentTaskId++;
     }
 
     removeTask(id: number) {
         for (let i = 0; i < this.taskList.length; i++) {
-            if (this.taskList[i][0] === id.toString()) {
+            if (this.taskList[i].taskId === id) {
                 this.taskList.splice(i, 1);
+                break;
             }
         }
     }
 
     checkTask(id: number, todo: boolean) {
         for (let i = 0; i < this.taskList.length; i++) {
-            if (this.taskList[i][0] === id.toString()) {
-                let task = this.taskList[i];
-                const charToAdd = todo ? 'o' : 'x';
-                if (!todo && task[3] === 'o' || todo && task[3] === 'x') {
-                    this.taskList[i] = task.substring(0, 3) + charToAdd + task.substring(4, task.length);
-                    break;
-                }
-
-                this.taskList[i] = task.substring(0, 3) + charToAdd + task.substring(3, task.length);
+            if (this.taskList[i].taskId === id) {
+                const newStatus = todo ? 'o' : 'x';
+                this.taskList[i].status = newStatus;
                 break;
             }
         }
