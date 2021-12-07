@@ -29,6 +29,7 @@ export class FakeConsole implements Console {
 
     addTask(description: string) {
         this.taskList.push(`${this.taskId.toString()} [] ${description}`)
+        this.taskId++;
     }
 
     removeTask(id: number) {
