@@ -35,7 +35,6 @@ export class FakeConsole implements Console {
         for (let i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i][0] === id.toString()) {
                 this.taskList.splice(i, 1);
-                continue
             }
         }
     }
@@ -44,14 +43,14 @@ export class FakeConsole implements Console {
         for (let i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i][0] === id.toString()) {
                 let task = this.taskList[i];
-                if (task[i][3] === 'o' || task[i][3] === 'x') {
-                    task[i].slice(3, 1);
-                }
                 const charToAdd = todo ? 'o' : 'x';
+                if (!todo && task[3] === 'o' || todo && task[3] === 'x') {
+                    this.taskList[i] = task.substring(0, 3) + charToAdd + task.substring(4, task.length);
+                    break;
+                }
 
-                console.log(charToAdd)
                 this.taskList[i] = task.substring(0, 3) + charToAdd + task.substring(3, task.length);
-                continue
+                break;
             }
         }
     }
