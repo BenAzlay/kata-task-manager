@@ -6,7 +6,8 @@ test("Add 'Learn Python' to task list", (t) => {
     t.plan(1);
     const console = new FakeConsole()
     console.readInput('+ Learn Python')
-    t.deepEqual(console.taskList[0], new Task(1, '', "Learn Python"))
+    console.displayTaskList()
+    t.deepEqual(console.displayedList, "1 [] Learn Python\n\n")
 })
 
 test("Remove task 1 from task list", (t) => {
@@ -14,7 +15,9 @@ test("Remove task 1 from task list", (t) => {
     const console = new FakeConsole()
     console.readInput('+ Learn Python')
     console.readInput('- 1')
-    t.deepEqual(console.taskList, []);
+    console.displayTaskList()
+
+    t.deepEqual(console.displayedList, '');
 })
 
 test("Check task 1 in task list", (t) => {
@@ -22,7 +25,9 @@ test("Check task 1 in task list", (t) => {
     const console = new FakeConsole()
     console.readInput('+ Learn Python')
     console.readInput('x 1')
-    t.deepEqual(console.taskList, [new Task(1, 'x', 'Learn Python')]);
+    console.displayTaskList()
+
+    t.deepEqual(console.displayedList, "1 [x] Learn Python\n\n")
 })
 
 test("Todo task 1 in task list", (t) => {
@@ -30,7 +35,9 @@ test("Todo task 1 in task list", (t) => {
     const console = new FakeConsole()
     console.readInput('+ Learn Python')
     console.readInput('o 1')
-    t.deepEqual(console.taskList, [new Task(1, 'o', "Learn Python")]);
+    console.displayTaskList()
+
+    t.deepEqual(console.displayedList, "1 [o] Learn Python\n\n")
 })
 
 test("Todo THEN check task 1 in task list", (t) => {
@@ -39,7 +46,9 @@ test("Todo THEN check task 1 in task list", (t) => {
     console.readInput('+ Learn Python')
     console.readInput('o 1')
     console.readInput('x 1')
-    t.deepEqual(console.taskList, [new Task(1, 'x', 'Learn Python')]);
+    console.displayTaskList()
+
+    t.deepEqual(console.displayedList, "1 [x] Learn Python\n\n")
 })
 
 test("Add 2 tasks to task list", (t) => {
@@ -47,7 +56,9 @@ test("Add 2 tasks to task list", (t) => {
     const console = new FakeConsole()
     console.readInput('+ Learn Python')
     console.readInput('+ Learn Ruby')
-    t.deepEqual(console.taskList, [new Task(1, '', "Learn Python"), new Task(2, '', "Learn Ruby")]);
+    console.displayTaskList()
+
+    t.deepEqual(console.displayedList, "1 [] Learn Python\n\n2 [] Learn Ruby\n\n")
 })
 
 test("Add 2 tasks to task list, remove task 1", (t) => {
@@ -56,7 +67,9 @@ test("Add 2 tasks to task list, remove task 1", (t) => {
     console.readInput('+ Learn Python')
     console.readInput('+ Learn Ruby')
     console.readInput('- 1')
-    t.deepEqual(console.taskList, [new Task(2, '', "Learn Ruby")]);
+    console.displayTaskList()
+
+    t.deepEqual(console.displayedList, "2 [] Learn Ruby\n\n")
 })
 
 test("Add 2 tasks to task list, remove task 1, add 1", (t) => {
@@ -66,5 +79,7 @@ test("Add 2 tasks to task list, remove task 1, add 1", (t) => {
     console.readInput('+ Learn Ruby')
     console.readInput('- 1')
     console.readInput('+ Enjoy')
-    t.deepEqual(console.taskList, [new Task(2, '', "Learn Ruby"), new Task(3, '', "Enjoy")]);
+    console.displayTaskList()
+
+    t.deepEqual(console.displayedList, "2 [] Learn Ruby\n\n3 [] Enjoy\n\n")
 })

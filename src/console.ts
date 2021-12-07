@@ -19,4 +19,5 @@ export interface Console {
     addTask: (description: string) => void;
     removeTask: (id: number) => void;
     checkTask: (id: number, todo: boolean) => void;
+    displayTaskList: () => void
 }

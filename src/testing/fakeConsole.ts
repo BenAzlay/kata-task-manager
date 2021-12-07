@@ -3,6 +3,7 @@ import { Console, Task } from '../console';
 export class FakeConsole implements Console {
     taskList: Task[] = [];
     currentTaskId: number = 1;
+    displayedList: string = '';
 
     readInput(input: string) {
         const operator = input[0]
@@ -53,6 +54,13 @@ export class FakeConsole implements Console {
                 this.taskList[i].status = newStatus;
                 break;
             }
+        }
+    }
+
+    displayTaskList() {
+        for(let i = 0; i < this.taskList.length; i++) {
+            const { taskId, status, description } = this.taskList[i];
+            this.displayedList += `${taskId} [${status}] ${description}\n\n`;
         }
     }
 }
