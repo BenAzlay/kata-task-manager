@@ -15,7 +15,7 @@ export class Task {
 export interface Console {
     taskList: Task[];
     currentTaskId: number;
-    readInput: (input: string) => void;
+    readInput: (input: string) => void | boolean;
     addTask: (description: string) => void;
     removeTask: (id: number) => void;
     checkTask: (id: number, todo: boolean) => void;
