@@ -11,12 +11,19 @@ export class FakeConsole implements Console {
         switch(operator) {
             case '+':
                 this.addTask(description);
+                break;
             case '-':
                 index = parseInt(description, 10)
                 this.removeTask(index)
+                break;
             case 'x':
                 index = parseInt(description, 10)
-                this.checkTask(index)
+                this.checkTask(index, false)
+                break;
+            case 'o':
+                index = parseInt(description, 10)
+                this.checkTask(index, true)
+                break;
         }
     }
 
@@ -33,11 +40,17 @@ export class FakeConsole implements Console {
         }
     }
 
-    checkTask(id: number) {
+    checkTask(id: number, todo: boolean) {
         for (let i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i][0] === id.toString()) {
-                const task = this.taskList[i]
-                this.taskList[i] = task.substring(0, 3) + 'x' + task.substring(3, task.length);
+                let task = this.taskList[i];
+                if (task[i][3] === 'o' || task[i][3] === 'x') {
+                    task[i].slice(3, 1);
+                }
+                const charToAdd = todo ? 'o' : 'x';
+
+                console.log(charToAdd)
+                this.taskList[i] = task.substring(0, 3) + charToAdd + task.substring(3, task.length);
                 continue
             }
         }

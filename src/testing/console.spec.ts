@@ -23,3 +23,11 @@ test("Check task 1 in task list", (t) => {
     console.readInput('x 1')
     t.deepEqual(console.taskList, ['1 [x] Learn Python']);
 })
+
+test("Todo task 1 in task list", (t) => {
+    t.plan(1);
+    const console = new FakeConsole()
+    console.readInput('+ Learn Python')
+    console.readInput('o 1')
+    t.deepEqual(console.taskList, ['1 [o] Learn Python']);
+})
