@@ -5,4 +5,5 @@ export interface Console {
     taskId: number;
     readInput: (input: string) => void;
     addTask: (description: string) => void;
+    removeTask: (id: number) => void;
 }
